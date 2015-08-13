@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/black-tech/mmspider/spider"
 	"io/ioutil"
 	"net/http"
 	"regexp"

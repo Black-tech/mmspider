@@ -1,0 +1,38 @@
+// 次文件用于抓取链接地址
+package main
+
+import(
+	"fmt"
+)
+
+type Link struct{
+	Id int64
+	Name string
+	Href string
+}
+
+func GetLinks(url string) (count int64, err error) {
+	count = 0
+	doc, err := goquery.NewDocument(url)
+	if err != nil {
+		fmt.Println("Error:", err.Error())
+		return
+	}
+	doc.Find("img").Each(func(i int, s *goquery.Selection) {
+		img_href, exists1 := s.Parent().Attr("href")
+		img_title, exists2 := s.Parent().Attr("title")
+		img_src, exists3 := s.Attr("src")
+
+		if exists1 && exists2 && exists3 {
+			img_count++
+			count++
+			imgs[img_count] = &Image{
+				Id:   img_count,
+				Name: img_title,
+				Src:  img_src,
+				Href: img_href,
+			}
+		}
+	})
+	return
+}
